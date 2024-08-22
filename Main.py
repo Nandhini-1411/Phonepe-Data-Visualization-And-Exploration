@@ -42,7 +42,7 @@ if selected_page == "Home":
     - **Quarter Filter** : Focus on specific quarter for more comphrensive analysis.
     """)
     with col22:
-        image_path_1 = r"D:\CAPSTONE\PHONEPE\IMAGES\phonpe1.jpg"
+        image_path_1 = r"D:\CAPSTONE\PHONEPE\CODE\SQLITE3\data\phonpe1.jpg""
         image_1 = Image.open(image_path_1)
         st.image(image_1, caption="Sample Image")
     with col22:
