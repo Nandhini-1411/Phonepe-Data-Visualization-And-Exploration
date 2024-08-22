@@ -1244,5 +1244,8 @@ def fetch_data_map_ins(conn,year, quarter):
     return df
 #connect to database
 def create_connection():
-    conn = mysql.connector.connect(user='root', password='9876543210', host='127.0.0.1', database='phonepedata')
+    conn = mysql.connector.connect(host=st.secrets["database"]["host"],
+            user=st.secrets["database"]["user"],
+            password=st.secrets["database"]["password"],
+            database=st.secrets["database"]["database"])
     return conn
