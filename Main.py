@@ -69,7 +69,7 @@ if selected_page == "State-Wise Analysis":
     st.markdown("""State Wise Analysis section is to explore data at the State level. Select any State to view detailed user, transaction, and insurance metrics, helping you identify regional patterns and make data-driven decisions for specific States.""")
     selected_option= st.radio("Select:",["User Analysis","Transaction Analysis","Insurance Analysis"])
     if selected_option=="User Analysis":
-        agg_user_data_path = r"D:\CAPSTONE\PHONEPE\CODE\SQLITE3\data\data\aggregated\user\state/"
+        agg_user_data_path = r"data\data\aggregated\user\state/"
         Agg_Users = fun.agg_user_data(agg_user_data_path)
         Agg_Users['Year'] = Agg_Users['Year'].astype(str)
         Agg_Users["Percentage_of_Brand"] = Agg_Users["Percentage_of_Brand"].apply(lambda x: "{:.1f}%".format(x * 100) if pd.notnull(x) else None)
