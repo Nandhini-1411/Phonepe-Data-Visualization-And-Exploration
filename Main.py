@@ -69,7 +69,7 @@ if selected_page == "State-Wise Analysis":
     st.markdown("""State Wise Analysis section is to explore data at the State level. Select any State to view detailed user, transaction, and insurance metrics, helping you identify regional patterns and make data-driven decisions for specific States.""")
     selected_option= st.radio("Select:",["User Analysis","Transaction Analysis","Insurance Analysis"])
     if selected_option=="User Analysis":
-        agg_user_data_path = r"D:\CAPSTONE\PHONEPE\data\aggregated\user\State/"
+        agg_user_data_path = r"data/phonepedata.db"
         Agg_Users = fun.agg_user_data(agg_user_data_path)
         Agg_Users['Year'] = Agg_Users['Year'].astype(str)
         Agg_Users["Percentage_of_Brand"] = Agg_Users["Percentage_of_Brand"].apply(lambda x: "{:.1f}%".format(x * 100) if pd.notnull(x) else None)
@@ -119,7 +119,7 @@ if selected_page == "State-Wise Analysis":
         fun.top_States_by_year_1(conn)
         st.markdown('<hr>', unsafe_allow_html=True)
     if selected_option == "Transaction Analysis":
-        agg_transaction_data_path = r"D:\CAPSTONE\PHONEPE\data\aggregated\transaction\State/"
+        agg_transaction_data_path = r"data/phonepedata.db"
         Agg_Trans = fun.agg_transaction_data(agg_transaction_data_path)
         Agg_Trans['Year'] = Agg_Trans['Year'].astype(str)
         col1, col2, col3, col4 = st.columns(4)
@@ -161,7 +161,7 @@ if selected_page == "State-Wise Analysis":
         fun.total_amount_highest_year(conn)
         st.markdown('<hr>', unsafe_allow_html=True)
     if selected_option == "Insurance Analysis":
-        agg_insurance_data_path = r"D:\CAPSTONE\PHONEPE\data\aggregated\insurance\State/"
+        agg_insurance_data_path = r"data/phonepedata.db"
         Agg_Ins = fun.agg_ins_data(agg_insurance_data_path)
         Agg_Ins['Year'] = Agg_Ins['Year'].astype(str)
         col1, col2, col3 = st.columns(3)
@@ -216,7 +216,7 @@ if selected_page == "Interactive Map Viewer":
         geojson_data = json.load(f)
     conn = fun.create_connection()
     if selected_option=="User Analysis":
-        map_user_data_path = r"D:\CAPSTONE\PHONEPE\data\map\user\State/"
+        map_user_data_path = r"data/phonepedata.db"
         Map_User = fun.map_user_data(map_user_data_path)
         Map_User['Year'] = Map_User['Year'].astype(str)
         filtered_Map_User = Map_User.copy()
@@ -237,7 +237,7 @@ if selected_page == "Interactive Map Viewer":
         with col3:
             st.plotly_chart(fig,use_container_width=True)
     if selected_option == "Transaction Analysis":
-        map_trans_data_path = r"D:\CAPSTONE\PHONEPE\data\map\transaction\State/"
+        map_trans_data_path = r"data/phonepedata.db"
         Map_Trans = fun.map_transaction_data(map_trans_data_path)
         filtered_Map_Trans = Map_Trans.copy()
         filtered_Map_Trans['State'] = filtered_Map_Trans['State'].str.capitalize()
@@ -255,7 +255,7 @@ if selected_page == "Interactive Map Viewer":
         if (filter_by_year in {2020} and quarter_filter < 2) or (filter_by_year in {2018, 2019} and quarter_filter <=4) :
             st.info("Please Select Year and Quarter From 2020-2nd")
         else:
-            map_ins_data_path = r"D:\CAPSTONE\PHONEPE\data\map\insurance\State/"
+            map_ins_data_path = r"data/phonepedata.db"
             try:
                 Map_Ins = fun.map_ins_data(map_ins_data_path)
                 filtered_Map_Ins = Map_Ins.copy()
@@ -281,7 +281,7 @@ if selected_page == "District-Wise Analysis":
     st.markdown("""Dive deeper with the District Wise Analysis section. This feature provides granular insights at the district level, allowing for more localized analysis and understanding. This is particularly useful for planning district-specific strategies and interventions.""")
     selected_option= st.radio("Select:",["User Analysis","Transaction Analysis","Insurance Analysis"])
     if selected_option == "User Analysis":
-        top_user_data_district_path = r"D:\CAPSTONE\PHONEPE\data\top\user\State/"
+        top_user_data_district_path = r"data/phonepedata.db"
         Top_User_District = fun.top_user_district_data(top_user_data_district_path)
         col1, col2, col3,col4 = st.columns(4)
         with col1:
@@ -327,7 +327,7 @@ if selected_page == "District-Wise Analysis":
             elif ques == 'District With Lowest No.of Users in All Years with their State':
                 fun.get_top_districts_with_lowest_registered_users_in_all_year(conn)
     if selected_option == "Transaction Analysis":
-        top_transaction_district_data_path = r"D:\CAPSTONE\PHONEPE\data\top\transaction\State/"
+        top_transaction_district_data_path = r"data/phonepedata.db"
         Top_Trans_District = fun.top_transaction_district_data(top_transaction_district_data_path)
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -387,7 +387,7 @@ if selected_page == "District-Wise Analysis":
             elif query == 'Lowest Transaction Amount All Years':
                 fun.get_lowest_transaction_amount_all_years(conn)
     if selected_option == "Insurance Analysis":
-        top_insurance_district_data_path = r"D:\CAPSTONE\PHONEPE\data\top\insurance\State/"
+        top_insurance_district_data_path = r"data/phonepedata.db"
         Top_Ins_District = fun.top_ins_dist_data(top_insurance_district_data_path)
         col1, col2, col3 = st.columns(3)
         with col1:
