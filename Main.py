@@ -42,16 +42,16 @@ if selected_page == "Home":
     - **Quarter Filter** : Focus on specific quarter for more comphrensive analysis.
     """)
     with col22:
-        image_path_1 = r"assets\images\phonpe1.jpg"
+        image_path_1 = r"assets/images/phonpe1.jpg"
         image_1 = Image.open(image_path_1)
         st.image(image_1, caption="Sample Image")
     with col22:
-        image_path_2 = r"assets\images\phonepe3.jpg"
+        image_path_2 = r"assets/images/phonepe3.jpg"
         image_2 = Image.open(image_path_2)
         st.image(image_2, caption="Sample Image")
         col1,col2,col3 = st.columns(3)
         with col2:
-            image_path_3 = r"assets\images\phonemap1.jpg"
+            image_path_3 = r"assets/images/phonemap1.jpg"
             image_3 = Image.open(image_path_3)
             st.image(image_3, caption="Sample Image")
     st.header("How to Use")
