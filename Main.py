@@ -7,7 +7,7 @@ from PIL import Image
 import pandas as pd
 #streamlit app
 conn = fun.create_connection()
-st.set_page_config(page_icon=r"D:\CAPSTONE\PHONEPE\CODE\SQLITE3\data\logofinal.png",page_title="PhonePe Data Insights",layout= "wide")
+st.set_page_config(page_icon=r"data/logofinal.png",page_title="PhonePe Data Insights",layout= "wide")
 st.title("PHONEPE DATA VISUALIZATION AND EXPLORATION")
 selected_page = option_menu(menu_title=None,
 options=["Home", "State-Wise Analysis", "Interactive Map Viewer","District-Wise Analysis","Insights"],
@@ -46,12 +46,12 @@ if selected_page == "Home":
         image_1 = Image.open(image_path_1)
         st.image(image_1, caption="Sample Image")
     with col22:
-        image_path_2 = r"D:\CAPSTONE\PHONEPE\CODE\SQLITE3\data\phonepe3.png"
+        image_path_2 = r"data/phonepe3.png"
         image_2 = Image.open(image_path_2)
         st.image(image_2, caption="Sample Image")
         col1,col2,col3 = st.columns(3)
         with col2:
-            image_path_3 = r"D:\CAPSTONE\PHONEPE\CODE\SQLITE3\data\phonemap1.jpg"
+            image_path_3 = r"data/phonemap1.jpg"
             image_3 = Image.open(image_path_3)
             st.image(image_3, caption="Sample Image")
     st.header("How to Use")
