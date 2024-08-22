@@ -3,6 +3,7 @@ from streamlit_option_menu import option_menu
 import Functions as fun
 import plotly.express as px
 import json
+from PIL import Image
 import pandas as pd
 #streamlit app
 conn = fun.create_connection()
