@@ -46,7 +46,7 @@ if selected_page == "Home":
         image_1 = Image.open(image_path_1)
         st.image(image_1, caption="Sample Image")
     with col22:
-        image_path_2 = r"assets/images/phonepe3.jpg"
+        image_path_2 = r"assets/images/phonepe3.png"
         image_2 = Image.open(image_path_2)
         st.image(image_2, caption="Sample Image")
         col1,col2,col3 = st.columns(3)
