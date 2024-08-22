@@ -41,16 +41,16 @@ if selected_page == "Home":
     - **Quarter Filter** : Focus on specific quarter for more comphrensive analysis.
     """)
     with col22:
-        image_path_1 = "data/sample_image.png"  
+        # image_path_1 = "data/sample_image.png"  
         image_1 = Image.open(r"D:\CAPSTONE\PHONEPE\IMAGES\phonpe1.jpg")
         st.image(image_1, caption="Sample Image")
     with col22:
-        image_path_2 = "data/sample_image.png"  
+        # image_path_2 = "data/sample_image.png"  
         image_2 = Image.open(r"D:\CAPSTONE\PHONEPE\IMAGES\phonepe3.png")
         st.image(image_2, caption="Sample Image")
         col1,col2,col3 = st.columns(3)
         with col2:
-            image_path_3 = "data/sample_image.png"  
+            # image_path_3 = "data/sample_image.png"  
             image_3 = Image.open(r"D:\CAPSTONE\PHONEPE\IMAGES\phonemap1.jpg")
             st.image(image_3, caption="Sample Image")
     st.header("How to Use")
