@@ -186,7 +186,7 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Ins = filtered_Agg_Ins[filtered_Agg_Ins["Quarter"] == int(quarter_filter_1)]
         st.info("The State-Wise Insurance Details")
         filtered_Agg_Ins['State'] = filtered_Agg_Ins['State'].str.capitalize()
-        if (year_filter_1 == '2024' and quarter_filter_1 > 1):
+        if (year_filter_1 == '2024' and quarter_filter_1 > 1) and (year_filter_1 == '2020' and quarter_filter_1 == 1) :
             st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
         else:
             st.dataframe(filtered_Agg_Ins,use_container_width=True)
@@ -429,7 +429,7 @@ if selected_page == "District-Wise Analysis":
             filtered_Top_Ins = filtered_Top_Ins[filtered_Top_Ins["Quarter"] == int(quarter_filter_1)]
         st.info("The District-Wise Transaction Details")
         filtered_Top_Ins['State'] = filtered_Top_Ins['State'].str.capitalize()
-        if (year_filter_1 == '2024' and quarter_filter > 1):
+        if (year_filter_1 == '2024' and quarter_filter_1 > 1) and (year_filter_1 == '2020' and quarter_filter_1 == 1) :
             st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
         else:
             st.dataframe(filtered_Top_Ins,use_container_width=True)  
