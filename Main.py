@@ -266,38 +266,35 @@ if selected_page == "Interactive Map Viewer":
                 st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
             else:
                 st.plotly_chart(fig1,use_container_width=True) 
-    if selected_option == "Transaction Analysis":
-        try:
-            Map_Ins = fun.map_ins_data(map_ins_data_path)
-            filtered_Map_Ins = Map_Ins.copy()
-            filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
-            
-            df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
-        
-        if not df2.empty:
-            print("df2 columns:", df2.columns)  # Debugging line
-            print("df2 sample data:", df2.head())  # Debugging line
-    
-            fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
-                color="Avg_Total_Count", 
-                color_continuous_scale="Sunsetdark",
-                range_color=(df2["Avg_Total_Count"].min(), df2["Avg_Total_Count"].max()),
-                hover_name="State",
-                hover_data={"State": True, "Avg_Total_Count": True, "Avg_Total_Amount": True}, 
-                title="Average Insurance",
-                labels={"Avg_Total_Count": "Avg Total Insurance Count", "Avg_Total_Amount": "Avg Total Insurance Amount"},
-                width=1000, height=600)
-            fig2.update_geos(fitbounds="locations", visible=False)
-            
-            with col3:
-                if (filter_by_year == '2024' and quarter_filter > 1):
-                    st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
-                else:
-                    st.plotly_chart(fig2, use_container_width=True)
+    if selected_option == "Insurance Analysis":
+        if (filter_by_year in {2020} and quarter_filter < 2) or (filter_by_year in {2018, 2019} and quarter_filter <=4) :
+            st.info("Please Select Year and Quarter From 2020-2nd")
         else:
-            st.write("No data available for the selected filters.")
-except Exception as e:
-    st.error(f"An error occurred: {e}")
+            map_ins_data_path = r"data/data/map/insurance/state/"
+            try:
+                Map_Ins = fun.map_ins_data(map_ins_data_path)
+                filtered_Map_Ins = Map_Ins.copy()
+                filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
+                df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
+                if not df2.empty:
+                    fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
+                        color="Avg_Total_Count", 
+                        color_continuous_scale="Sunsetdark",range_color=(df2["Avg_Total_Count"].min(), df2["Avg_Total_Count"].max()),
+                        hover_name="State",
+                        hover_data={"State": True, "Avg_Total_Count": True, "Avg_Total_Amount": True}, 
+                        title="Average Insurance",
+                        labels={"Avg_Total_Count": "Avg Total Insurance Count", "Avg_Total_Amount": "Avg Total Insurance Amount"},width =1000,height=600)
+                    fig2.update_geos(fitbounds="locations", visible=False)
+                    with col3:
+                        if (filter_by_year == '2024' and quarter_filter >1):
+                            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+                        else:
+                            st.plotly_chart(fig2,use_container_width=True) 
+                else:
+                    st.write("No data available for the selected filters.")
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+                
 if selected_page == "District-Wise Analysis":
     st.markdown("""Dive deeper with the District Wise Analysis section. This feature provides granular insights at the district level, allowing for more localized analysis and understanding. This is particularly useful for planning district-specific strategies and interventions.""")
     selected_option= st.radio("Select:",["User Analysis","Transaction Analysis","Insurance Analysis"])
