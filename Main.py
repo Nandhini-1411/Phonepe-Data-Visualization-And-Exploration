@@ -279,8 +279,7 @@ if selected_page == "Interactive Map Viewer":
                 if not df2.empty:
                     fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
                         color="Avg_Total_Count", 
-                        color_continuous_scale="Sunsetdark",
-                        range_color=(df2["Avg_Total_Count"].min(), df2["Avg_Total_Count"].max()),
+                        color_continuous_scale="Sunsetdark",range_color=(df["Avg_Total_Count"].min(), df["Avg_Total_Count"].max()),
                         hover_name="State",
                         hover_data={"State": True, "Avg_Total_Count": True, "Avg_Total_Amount": True}, 
                         title="Average Insurance",
