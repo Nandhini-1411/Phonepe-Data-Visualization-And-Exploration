@@ -37,5 +37,8 @@ Define functions to get
 INTERACTIVE MAP VIEWER:
  - User can filter the year and qaurter after selecting the Mode of Retrival. They Can See the Indian Geograpgical Map with the corresponding Analysis by hover over the State.
 
+
+- The data is from anothe github account.
+
 INSIGHTS:
  - Using Status Messages for Provide insights from the analysis at the Insights Option, to keep the client user informed and engaged.
