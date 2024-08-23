@@ -425,17 +425,21 @@ def get_top_States_with_highest_registered_users(conn):
                 GROUP BY State
                 ORDER BY Total_Users DESC
                 LIMIT 10;"""
-    df = pd.read_sql(query, conn)
-    df["State"] = df["State"].str.capitalize()
-    colors = ['#4B0082', '#6A5ACD', '#9932CC', '#800080', '#9400D3', '#663399', '#C9A0DC', '#483D8B', '#C8A2C8', '#CCCCFF']
-    fig = px.bar(df, x='State', y='Total_Users',color = 'State',color_discrete_sequence=colors,
-                     hover_name='State',
-                     text="Total_Users",
-                     labels={'Registered_Users': 'Number of Registered Users', 'State': 'State'})
-    fig.update_traces(textposition='inside', textangle=90)
-    fig.update_layout(hoverlabel=dict(bgcolor="black", font_size=16, font_family="Courier New",
-    font=dict(color="white")))
-    st.plotly_chart(fig,use_container_width=True)
+    try:
+        df = pd.read_sql(query, conn)
+        df["State"] = df["State"].str.capitalize()
+        colors = ['#4B0082', '#6A5ACD', '#9932CC', '#800080', '#9400D3', '#663399', '#C9A0DC', '#483D8B', '#C8A2C8', '#CCCCFF']
+        fig = px.bar(df, x='State', y='Total_Users',color = 'State',color_discrete_sequence=colors,
+                         hover_name='State',
+                         text="Total_Users",
+                         labels={'Registered_Users': 'Number of Registered Users', 'State': 'State'})
+        fig.update_traces(textposition='inside', textangle=90)
+        fig.update_layout(hoverlabel=dict(bgcolor="black", font_size=16, font_family="Courier New",
+        font=dict(color="white")))
+        st.plotly_chart(fig,use_container_width=True)
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+    
 #2
 def get_bottom_States_with_lowest_registered_users(conn):
     query = """SELECT State, SUM(Total_Registered_Users) AS Total_Users
