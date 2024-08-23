@@ -268,11 +268,11 @@ if selected_page == "Interactive Map Viewer":
                 st.plotly_chart(fig1,use_container_width=True) 
     if selected_option == "Transaction Analysis":
         try:
-        Map_Ins = fun.map_ins_data(map_ins_data_path)
-        filtered_Map_Ins = Map_Ins.copy()
-        filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
-        
-        df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
+            Map_Ins = fun.map_ins_data(map_ins_data_path)
+            filtered_Map_Ins = Map_Ins.copy()
+            filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
+            
+            df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
         
         if not df2.empty:
             print("df2 columns:", df2.columns)  # Debugging line
