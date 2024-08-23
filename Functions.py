@@ -1249,6 +1249,7 @@ def fetch_data_map_ins(conn,year, quarter):
     df["Avg_Total_Amount"] = df["Avg_Total_Amount"].round()
     return df
 #connect to database
+db_path = st.secrets["database"]["path"]
 def create_connection():
-    conn = sqlite3.connect('phonepedata.db')  
+    conn = sqlite3.connect('db_path')  
     return conn
