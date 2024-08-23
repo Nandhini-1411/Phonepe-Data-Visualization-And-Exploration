@@ -220,7 +220,7 @@ if selected_page == "Interactive Map Viewer":
         with col1:
             filter_by_year = st.selectbox("Filter By Year :", ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], key="year_filter")
             quarter_filter = st.selectbox("Select Quarter:", ["1", "2", "3", "4"], key="quarter_filter")
-    geojson_path =r"india-State.geojson"
+    geojson_path ="india-State.geojson"
     with open(geojson_path, 'r') as f:
         geojson_data = json.load(f)
     conn = fun.create_connection()
