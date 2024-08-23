@@ -93,7 +93,7 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Users_1 = filtered_Agg_Users_1[filtered_Agg_Users_1["Device_Brand"] == brand_filter_1]
         st.info("The State-Wise User Details")
         filtered_Agg_Users_1['State'] = filtered_Agg_Users_1['State'].str.capitalize()
-        if (year_filter_1 == '2024' and quarter_filter > 1):
+        if (year_filter_1 == '2024' and quarter_filter_1 > 1):
             st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
         else:
             st.dataframe(filtered_Agg_Users_1, use_container_width=True)
@@ -145,7 +145,7 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Trans = filtered_Agg_Trans[filtered_Agg_Trans["Transaction_Type"] == trans_type_filter_1]
         st.info("The State-Wise Transaction Detals")
         filtered_Agg_Trans['State'] = filtered_Agg_Trans['State'].str.capitalize()
-        if (year_filter_1 == '2024' and quarter_filter > 1):
+        if (year_filter_1 == '2024' and quarter_filter_1 > 1):
             st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
         else:
             st.dataframe(filtered_Agg_Trans,use_container_width=True)
@@ -186,7 +186,7 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Ins = filtered_Agg_Ins[filtered_Agg_Ins["Quarter"] == int(quarter_filter_1)]
         st.info("The State-Wise Insurance Details")
         filtered_Agg_Ins['State'] = filtered_Agg_Ins['State'].str.capitalize()
-        if (year_filter_1 == '2024' and quarter_filter > 1):
+        if (year_filter_1 == '2024' and quarter_filter_1 > 1):
             st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
         else:
             st.dataframe(filtered_Agg_Ins,use_container_width=True)
@@ -244,7 +244,10 @@ if selected_page == "Interactive Map Viewer":
                         labels={"avg_registered_users": "Avg Registered Users", "avg_app_opens": "Avg App Opens"},width =1000,height=600)
         fig.update_geos(fitbounds="locations", visible=False)
         with col3:
-            st.plotly_chart(fig,use_container_width=True)
+            if (filter_by_year == '2024' and quarter_filter >1):
+                st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+            else:
+                st.plotly_chart(fig,use_container_width=True)                
     if selected_option == "Transaction Analysis":
         map_trans_data_path = r"data/data/map/transaction/state/"
         Map_Trans = fun.map_transaction_data(map_trans_data_path)
@@ -259,7 +262,10 @@ if selected_page == "Interactive Map Viewer":
                     labels={"Avg_Transaction_Count": "Avg Transaction Count", "Avg_Total_Transaction_Amount": "Avg Transaction Amount"},width =1000,height=600)
         fig1.update_geos(fitbounds="locations", visible=False)
         with col3:
-            st.plotly_chart(fig1,use_column_width=True)
+            if (filter_by_year == '2024' and quarter_filter >1):
+                st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+            else:
+                st.plotly_chart(fig1,use_container_width=True) 
     if selected_option == "Insurance Analysis":
         if (filter_by_year in {2020} and quarter_filter < 2) or (filter_by_year in {2018, 2019} and quarter_filter <=4) :
             st.info("Please Select Year and Quarter From 2020-2nd")
@@ -281,7 +287,10 @@ if selected_page == "Interactive Map Viewer":
                         labels={"Avg_Total_Count": "Avg Total Insurance Count", "Avg_Total_Amount": "Avg Total Insurance Amount"},width =1000,height=600)
                     fig2.update_geos(fitbounds="locations", visible=False)
                     with col3:
-                        st.plotly_chart(fig2, use_column_width=True)
+                        if (filter_by_year == '2024' and quarter_filter >1):
+                            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+                        else:
+                            st.plotly_chart(fig2,use_container_width=True) 
                 else:
                     st.write("No data available for the selected filters.")
             except Exception as e:
