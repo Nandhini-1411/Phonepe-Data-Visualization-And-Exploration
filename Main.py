@@ -93,7 +93,10 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Users_1 = filtered_Agg_Users_1[filtered_Agg_Users_1["Device_Brand"] == brand_filter_1]
         st.info("The State-Wise User Details")
         filtered_Agg_Users_1['State'] = filtered_Agg_Users_1['State'].str.capitalize()
-        st.dataframe(filtered_Agg_Users_1, use_container_width=True)
+        if (year_filter_1 == '2024' and quarter_filter > 1):
+            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+        else:
+            st.dataframe(filtered_Agg_Users_1, use_container_width=True)
         if filtered_Agg_Users_1["Device_Brand"].isnull().any():
             st.error("Oops! Sorry. There is No Device Brand Details Available for Some Entries in the Filtered Datfun.")
         st.markdown('<hr>', unsafe_allow_html=True)
@@ -142,7 +145,10 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Trans = filtered_Agg_Trans[filtered_Agg_Trans["Transaction_Type"] == trans_type_filter_1]
         st.info("The State-Wise Transaction Detals")
         filtered_Agg_Trans['State'] = filtered_Agg_Trans['State'].str.capitalize()
-        st.dataframe(filtered_Agg_Trans,use_container_width=True)
+        if (year_filter_1 == '2024' and quarter_filter > 1):
+            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+        else:
+            st.dataframe(filtered_Agg_Trans,use_container_width=True)
         st.markdown('<hr>', unsafe_allow_html=True)
         st.subheader("TRANSACTION COUNT:")
         fun.get_top_10_States_with_highest_transaction_count(conn)
@@ -180,7 +186,10 @@ if selected_page == "State-Wise Analysis":
             filtered_Agg_Ins = filtered_Agg_Ins[filtered_Agg_Ins["Quarter"] == int(quarter_filter_1)]
         st.info("The State-Wise Insurance Details")
         filtered_Agg_Ins['State'] = filtered_Agg_Ins['State'].str.capitalize()
-        st.dataframe(filtered_Agg_Ins,use_container_width=True)
+        if (year_filter_1 == '2024' and quarter_filter > 1):
+            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+        else:
+            st.dataframe(filtered_Agg_Ins,use_container_width=True)
         st.markdown('<hr>', unsafe_allow_html=True)
         col1, col2= st.columns(2)
         with col1 :
@@ -304,7 +313,10 @@ if selected_page == "District-Wise Analysis":
         st.info("The District-Wise User Details")
         filtered_Top_Users['State'] = filtered_Top_Users['State'].str.capitalize()
         filtered_Top_Users['District'] = filtered_Top_Users['District'].str.capitalize()
-        st.dataframe(filtered_Top_Users,use_container_width=True)  
+        if (year_filter_1 == '2024' and quarter_filter > 1):
+            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+        else:
+            st.dataframe(filtered_Top_Users,use_container_width=True)  
         col1,col2,col3,col4,col5 = st.columns([1,1,3,1,1])
         with col3:
             ques = st.selectbox("Registered Users", [
@@ -345,7 +357,10 @@ if selected_page == "District-Wise Analysis":
             filtered_Top_Trans = filtered_Top_Trans[filtered_Top_Trans["Quarter"] == int(quarter_filter_1)]
         st.info("The District-Wise Transaction Details")
         filtered_Top_Trans['State'] = filtered_Top_Trans['State'].str.capitalize()
-        st.dataframe(filtered_Top_Trans,use_container_width=True)  
+        if (year_filter_1 == '2024' and quarter_filter > 1):
+            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+        else:
+            st.dataframe(filtered_Top_Trans,use_container_width=True)  
         col1,col2, = st.columns(2)
         with col1:
             ques1 = st.selectbox("Transaction Count", [
@@ -405,7 +420,10 @@ if selected_page == "District-Wise Analysis":
             filtered_Top_Ins = filtered_Top_Ins[filtered_Top_Ins["Quarter"] == int(quarter_filter_1)]
         st.info("The District-Wise Transaction Details")
         filtered_Top_Ins['State'] = filtered_Top_Ins['State'].str.capitalize()
-        st.dataframe(filtered_Top_Ins,use_container_width=True)  
+        if (year_filter_1 == '2024' and quarter_filter > 1):
+            st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
+        else:
+            st.dataframe(filtered_Top_Ins,use_container_width=True)  
         col1,col2=st.columns(2)
         with col1:
             ques = st.selectbox("Insurance Count", [
