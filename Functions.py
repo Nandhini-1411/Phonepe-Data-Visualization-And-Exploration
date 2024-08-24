@@ -1236,8 +1236,8 @@ def fetch_data_map_trans(conn,year, quarter):
     return df
 #3
 def fetch_data_map_ins(conn,year, quarter):
-    query = """SELECT quarter,year,State,SUM(Total_Count) AS Avg_Total_Count,
-    SUM(Total_Amount) AS Avg_Total_Amount
+    query = """SELECT quarter,year,State,AVG(Total_Count) AS Avg_Total_Count,
+    AVG(Total_Amount) AS Avg_Total_Amount
     FROM map_insurance 
     WHERE year = ? AND quarter = ?
     GROUP BY quarter, year, State"""
