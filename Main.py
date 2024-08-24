@@ -263,7 +263,8 @@ if selected_page == "Interactive Map Viewer":
                 st.plotly_chart(fig1,use_container_width=True) 
     if selected_option == "Insurance Analysis":
         if (filter_by_year in '2020' and quarter_filter < 2) or (filter_by_year in {'2018', '2019'} and quarter_filter) :
-            st.info("Please Select Year and Quarter From 2020-2nd")
+            with col1:
+                st.info("Please Select Year and Quarter From 2020-2nd")
         else:
             map_ins_data_path = r"data/data/map/insurance/state/"
             try:
