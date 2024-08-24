@@ -44,16 +44,16 @@ if selected_page == "Home":
     with col22:
         image_path_1 = r"assets/images/phonpe1.jpg"
         image_1 = Image.open(image_path_1)
-        st.image(image_1, caption="Sample Image")
+        st.image(image_1)
     with col22:
         image_path_2 = r"assets/images/phonepe3.png"
         image_2 = Image.open(image_path_2)
-        st.image(image_2, caption="Sample Image")
+        st.image(image_2)
         col1,col2,col3 = st.columns(3)
         with col2:
             image_path_3 = r"assets/images/phonemap1.jpg"
             image_3 = Image.open(image_path_3)
-            st.image(image_3, caption="Sample Image")
+            st.image(image_3)
     st.header("How to Use")
     st.markdown("""
     1. Navigation: Use the Option-Menu above to switch between the main sections: Home, State Wise Analysis, Interactive Map, and District Wise Analysis.
