@@ -272,7 +272,7 @@ if selected_page == "Interactive Map Viewer":
                 filtered_Map_Ins = Map_Ins.copy()
                 filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
                 df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
-                print(df2)
+                print(df2.head(2))
                 fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
                     color="Avg_Total_Count", 
                     color_continuous_scale="Sunsetdark",range_color=(df2["Avg_Total_Count"].min(), df2["Avg_Total_Count"].max()),
