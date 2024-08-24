@@ -266,7 +266,7 @@ if selected_page == "Interactive Map Viewer":
             with col1:
                 st.info("Please Select Year and Quarter From 2020-2nd")
         else:
-            map_ins_data_path = r"data/data/map/insurance/hover/state/"
+            map_ins_data_path = r"/data/data/map/insurance/hover/country/india/state/"
             try:
                 Map_Ins = fun.map_ins_data(map_ins_data_path)
                 filtered_Map_Ins = Map_Ins.copy()
