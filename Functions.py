@@ -1255,7 +1255,7 @@ def fetch_data_map_ins(conn,year, quarter):
         'Tamil-nadu': 'Tamil Nadu',
         'Uttar-pradesh': 'Uttar Pradesh',
         'West-bengal': 'West Bengal'}
-    df['state'] = df['state'].str.capitalize().replace(State_mapping)
+    df['State'] = df['State'].str.capitalize().replace(State_mapping)
     df["Avg_Total_Count"] = df["Avg_Total_Count"].round()
     df["Avg_Total_Amount"] = df["Avg_Total_Amount"].round()
     return df
