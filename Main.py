@@ -213,8 +213,8 @@ if selected_page == "Interactive Map Viewer":
     col1,col2,col3 = st.columns([1,1,4])
     if selected_option == "Insurance Analysis":
         with col1:
-            filter_by_year = st.selectbox("Filter By Year :", ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], key="year_filter")
-            quarter_filter = st.selectbox("Select Quarter:", ["1", "2", "3", "4"], key="quarter_filter")
+            filter_by_year_3 = st.selectbox("Filter By Year :", ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], key="year_filter_3")
+            quarter_filter_3 = st.selectbox("Select Quarter:", ["1", "2", "3", "4"], key="quarter_filter_3")
             st.info("Please Select Year and Quarter From 2020-2nd")
     else:
         with col1:
@@ -267,7 +267,7 @@ if selected_page == "Interactive Map Viewer":
             else:
                 st.plotly_chart(fig1,use_container_width=True) 
     if selected_option == "Insurance Analysis":
-        if (filter_by_year in {2020} and quarter_filter < 2) or (filter_by_year in {2018, 2019} and quarter_filter <=4) :
+        if (filter_by_year_3 in '2020' and quarter_filter_3 < 2) or (filter_by_year_3 in {'2018', '2019'} and quarter_filter_3 <=4) :
             st.info("Please Select Year and Quarter From 2020-2nd")
         else:
             map_ins_data_path = r"data/data/map/insurance/state/"
@@ -275,7 +275,7 @@ if selected_page == "Interactive Map Viewer":
                 Map_Ins = fun.map_ins_data(map_ins_data_path)
                 filtered_Map_Ins = Map_Ins.copy()
                 filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
-                df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
+                df2 = fun.fetch_data_map_ins(conn, filter_by_year_3, quarter_filter_3)
                 if not df2.empty:
                     fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
                         color="Avg_Total_Count", 
@@ -286,7 +286,7 @@ if selected_page == "Interactive Map Viewer":
                         labels={"Avg_Total_Count": "Avg Total Insurance Count", "Avg_Total_Amount": "Avg Total Insurance Amount"},width =1000,height=600)
                     fig2.update_geos(fitbounds="locations", visible=False)
                     with col3:
-                        if (filter_by_year == '2024' and quarter_filter >1):
+                        if (filter_by_year_3 == '2024' and quarter_filter_3 >1):
                             st.info("Note: Data is available from 2018 until the 1st Quarter of 2024.")
                         else:
                             st.plotly_chart(fig2,use_container_width=True) 
