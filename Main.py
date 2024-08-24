@@ -211,10 +211,9 @@ if selected_page == "Interactive Map Viewer":
     st.markdown("""Our Interactive Map feature allows you to visualize the data geographically. This visual representation helps in identifying regional disparities, growth opportunities, and areas needing attention. You can switch between User Analysis, Transaction Analysis, and Insurance Analysis to see different aspects of the data on the map.""")
     selected_option= st.radio("Select:",["User Analysis","Transaction Analysis","Insurance Analysis"])
     col1,col2,col3 = st.columns([1,1,4])
-    if selected_option == "Insurance Analysis":
-        with col1:
-            filter_by_year = st.selectbox("Filter By Year :", ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], key="year_filter")
-            quarter_filter = st.selectbox("Select Quarter:", ["1", "2", "3", "4"], key="quarter_filter")
+    with col1:
+        filter_by_year = st.selectbox("Filter By Year :", ["2018", "2019", "2020", "2021", "2022", "2023", "2024"], key="year_filter")
+        quarter_filter = st.selectbox("Select Quarter:", ["1", "2", "3", "4"], key="quarter_filter")
     geojson_path ="india-state.geojson"
     with open(geojson_path, 'r') as f:
         geojson_data = json.load(f)
