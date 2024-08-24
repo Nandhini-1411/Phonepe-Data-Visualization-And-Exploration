@@ -271,19 +271,19 @@ if selected_page == "Interactive Map Viewer":
                 filtered_Map_Ins = Map_Ins.copy()
                 filtered_Map_Ins['State'] = filtered_Map_Ins['State'].str.capitalize()
                 df2 = fun.fetch_data_map_ins(conn, filter_by_year, quarter_filter)
-                    fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
-                        color="Avg_Total_Count", 
-                        color_continuous_scale="Sunsetdark",range_color=(df2["Avg_Total_Count"].min(), df2["Avg_Total_Count"].max()),
-                        hover_name="State",
-                        hover_data={"State": True, "Avg_Total_Count": True, "Avg_Total_Amount": True}, 
-                        title="Average Insurance",
-                        labels={"Avg_Total_Count": "Avg Total Insurance Count", "Avg_Total_Amount": "Avg Total Insurance Amount"},width =1000,height=600)
-                    fig2.update_geos(fitbounds="locations", visible=False)
-                    with col3:
-                        if (filter_by_year == '2024' and quarter_filter >1):
-                            st.info("Note: Data is available from 2020-2nd Quarter until the 1st Quarter of 2024.")
-                        else:
-                            st.plotly_chart(fig2,use_container_width=True) 
+                fig2 = px.choropleth(df2, geojson=geojson_data, locations="State", featureidkey="properties.NAME_1",
+                    color="Avg_Total_Count", 
+                    color_continuous_scale="Sunsetdark",range_color=(df2["Avg_Total_Count"].min(), df2["Avg_Total_Count"].max()),
+                    hover_name="State",
+                    hover_data={"State": True, "Avg_Total_Count": True, "Avg_Total_Amount": True}, 
+                    title="Average Insurance",
+                    labels={"Avg_Total_Count": "Avg Total Insurance Count", "Avg_Total_Amount": "Avg Total Insurance Amount"},width =1000,height=600)
+                fig2.update_geos(fitbounds="locations", visible=False)
+                with col3:
+                    if (filter_by_year == '2024' and quarter_filter >1):
+                        st.info("Note: Data is available from 2020-2nd Quarter until the 1st Quarter of 2024.")
+                    else:
+                        st.plotly_chart(fig2,use_container_width=True) 
             except Exception as e:
                 st.error(f"An error occurred: {e}")
                 
