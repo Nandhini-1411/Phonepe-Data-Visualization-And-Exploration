@@ -5,8 +5,6 @@ import pandas as pd
 import sqlite3
 import streamlit as st
 import plotly.express as px
-# Load database path from secrets
-db_path = st.secrets["database"]["path"]
 #Aggregated User
 @st.cache_data(show_spinner=False)
 def agg_user_data(path):
