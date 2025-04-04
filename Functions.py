@@ -1250,5 +1250,5 @@ def fetch_data_map_ins(conn,year, quarter):
     return df
 #connect to database
 def create_connection():
-    conn = sqlite3.connect('phonepedata.db')  
+    conn = sqlite3.connect('data.db')  
     return conn
