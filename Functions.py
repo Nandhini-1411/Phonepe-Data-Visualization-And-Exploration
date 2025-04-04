@@ -10,7 +10,6 @@ import plotly.express as px
 def agg_user_data(path):
     agg_State_list = os.listdir(path)
     colm = {'State': [], 'Year': [], 'Quarter': [], 'Total_Registered_Users': [], 'Total_App_Opens': [], 'Device_Brand': [], 'Reg_User_Count_By_Brand': [], 'Percentage_of_Brand': []}
-    
     for i in agg_State_list:
         p_i = os.path.join(path, i) 
         agg_yr = os.listdir(p_i) 
@@ -19,61 +18,55 @@ def agg_user_data(path):
             agg_yr_list = os.listdir(p_j) 
             for k in agg_yr_list:
                 p_k = os.path.join(p_j, k) 
-                if p_k.endswith('.json'):  # Check if the file is a JSON file
-                    with open(p_k, 'r') as Data:
-                        D = json.load(Data) 
-                        aggregated = D.get('data', {}).get('aggregated', {})
-                        Total_Registered_Users = aggregated.get('registeredUsers')
-                        Total_App_Opens = aggregated.get('appOpens')
-                        users_by_device = D.get('data', {}).get('usersByDevice', [])
-                        if users_by_device: 
-                            for device in users_by_device: 
-                                Device_Brand = device.get('brand')
-                                Reg_User_Count_By_Brand = device.get('count')
-                                Percentage_of_Brand = device.get('percentage')
-                                colm['Device_Brand'].append(Device_Brand)
-                                colm['Reg_User_Count_By_Brand'].append(Reg_User_Count_By_Brand)
-                                colm['Percentage_of_Brand'].append(Percentage_of_Brand)
-                                colm['Total_Registered_Users'].append(Total_Registered_Users)
-                                colm['Total_App_Opens'].append(Total_App_Opens)
-                                colm['State'].append(i)
-                                colm['Year'].append(int(j))
-                                colm['Quarter'].append(int(k.strip('.json')))  # Corrected this line
-
-    # Create DataFrame
+                with open(p_k, 'r') as Data:
+                    D = json.load(Data) 
+                    aggregated = D.get('data', {}).get('aggregated', {})
+                    Total_Registered_Users = aggregated.get('registeredUsers')
+                    Total_App_Opens = aggregated.get('appOpens')
+                    users_by_device = D.get('data', {}).get('usersByDevice', [])
+                    if users_by_device: 
+                        for device in users_by_device: 
+                            Device_Brand = device.get('brand')
+                            Reg_User_Count_By_Brand = device.get('count')
+                            Percentage_of_Brand = device.get('percentage')
+                            colm['Device_Brand'].append(Device_Brand)
+                            colm['Reg_User_Count_By_Brand'].append(Reg_User_Count_By_Brand)
+                            colm['Percentage_of_Brand'].append(Percentage_of_Brand)
+                            colm['Total_Registered_Users'].append(Total_Registered_Users)
+                            colm['Total_App_Opens'].append(Total_App_Opens)
+                            colm['State'].append(i)
+                            colm['Year'].append(int(j))
+                            colm['Quarter'].append(int(k.strip('.json')))
+                    else :
+                        colm['Device_Brand'].append(None)
+                        colm['Reg_User_Count_By_Brand'].append(None)
+                        colm['Percentage_of_Brand'].append(None)
+                        colm['Total_Registered_Users'].append(Total_Registered_Users)
+                        colm['Total_App_Opens'].append(Total_App_Opens)
+                        colm['State'].append(i)
+                        colm['Year'].append(int(j))
+                        colm['Quarter'].append(int(k.strip('.json')))
     Agg_Users = pd.DataFrame(colm)
-    Agg_Users = Agg_Users.fillna({'Device_Brand': 'Unknown', 'Reg_User_Count_By_Brand': 0, 'Percentage_of_Brand': 0.0})
-
-    # Database operations
+    Agg_Users = Agg_Users.fillna({'Device_Brand': 'Unknown','Reg_User_Count_By_Brand': 0,'Percentage_of_Brand': 0.0})
     conn = create_connection()
-    try:
-        cursor = conn.cursor()  
-        # Create table
-        aggregated_user_table = '''CREATE TABLE IF NOT EXISTS agg_user (
-                                    State VARCHAR(50),
-                                    Year VARCHAR(5),
-                                    Quarter INT,
-                                    Total_Registered_Users INTEGER,
-                                    Total_App_Opens INTEGER,
-                                    Device_Brand VARCHAR(50),
-                                    Percentage_of_Brand DECIMAL(5,2),
-                                    Reg_User_Count_By_Brand INTEGER,
-                                    UNIQUE (State, Year, Quarter, Device_Brand, Total_Registered_Users, Total_App_Opens, Reg_User_Count_By_Brand, Percentage_of_Brand))'''
-        cursor.execute(aggregated_user_table)
-
-        # Insert data
-        insert_query1 = '''INSERT OR IGNORE INTO agg_user (State, Year, Quarter, Total_Registered_Users, Total_App_Opens, Device_Brand, Reg_User_Count_By_Brand, Percentage_of_Brand)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-        for index, row in Agg_Users.iterrows():
-            values = (row['State'], row['Year'], row['Quarter'], row['Total_Registered_Users'], row['Total_App_Opens'], row['Device_Brand'], row['Reg_User_Count_By_Brand'], row['Percentage_of_Brand'])
-            cursor.execute(insert_query1, values)
-
-        conn.commit()
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        conn.close()
-
+    cursor = conn.cursor()  
+    aggregated_user_table = '''CREATE TABLE IF NOT EXISTS agg_user (
+                                State VARCHAR(50),
+                                Year VARCHAR(5),
+                                Quarter INT,
+                                Total_Registered_Users INTEGER,
+                                Total_App_Opens INTEGER,
+                                Device_Brand VARCHAR(50) NULL,
+                                Percentage_of_Brand DECIMAL(5,2),
+                                Reg_User_Count_By_Brand INTEGER,
+                                UNIQUE (State, Year, Quarter,Device_Brand,Total_Registered_Users, Total_App_Opens,Reg_User_Count_By_Brand, Percentage_of_Brand))'''
+    cursor.execute(aggregated_user_table)
+    insert_query1 = '''INSERT OR IGNORE INTO  agg_user (State, Year, Quarter, Total_Registered_Users, Total_App_Opens, Device_Brand, Reg_User_Count_By_Brand, Percentage_of_Brand)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
+    for index, row in Agg_Users.iterrows():
+        values = (row['State'],row['Year'],row['Quarter'],row['Total_Registered_Users'],row['Total_App_Opens'],row['Device_Brand'],row['Reg_User_Count_By_Brand'],row['Percentage_of_Brand'])
+        cursor.execute(insert_query1, values)
+    conn.commit()
     return Agg_Users   
 #Aggregated Transaction
 @st.cache_data(show_spinner=False)
@@ -432,21 +425,17 @@ def get_top_States_with_highest_registered_users(conn):
                 GROUP BY State
                 ORDER BY Total_Users DESC
                 LIMIT 10;"""
-    try:
-        df = pd.read_sql(query, conn)
-        df["State"] = df["State"].str.capitalize()
-        colors = ['#4B0082', '#6A5ACD', '#9932CC', '#800080', '#9400D3', '#663399', '#C9A0DC', '#483D8B', '#C8A2C8', '#CCCCFF']
-        fig = px.bar(df, x='State', y='Total_Users',color = 'State',color_discrete_sequence=colors,
-                         hover_name='State',
-                         text="Total_Users",
-                         labels={'Registered_Users': 'Number of Registered Users', 'State': 'State'})
-        fig.update_traces(textposition='inside', textangle=90)
-        fig.update_layout(hoverlabel=dict(bgcolor="black", font_size=16, font_family="Courier New",
-        font=dict(color="white")))
-        st.plotly_chart(fig,use_container_width=True)
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-    
+    df = pd.read_sql(query, conn)
+    df["State"] = df["State"].str.capitalize()
+    colors = ['#4B0082', '#6A5ACD', '#9932CC', '#800080', '#9400D3', '#663399', '#C9A0DC', '#483D8B', '#C8A2C8', '#CCCCFF']
+    fig = px.bar(df, x='State', y='Total_Users',color = 'State',color_discrete_sequence=colors,
+                     hover_name='State',
+                     text="Total_Users",
+                     labels={'Registered_Users': 'Number of Registered Users', 'State': 'State'})
+    fig.update_traces(textposition='inside', textangle=90)
+    fig.update_layout(hoverlabel=dict(bgcolor="black", font_size=16, font_family="Courier New",
+    font=dict(color="white")))
+    st.plotly_chart(fig,use_container_width=True)
 #2
 def get_bottom_States_with_lowest_registered_users(conn):
     query = """SELECT State, SUM(Total_Registered_Users) AS Total_Users
@@ -1260,7 +1249,6 @@ def fetch_data_map_ins(conn,year, quarter):
     df["Avg_Total_Amount"] = df["Avg_Total_Amount"].round()
     return df
 #connect to database
-db_path = os.path.join(os.getcwd(), "data", "data")
 def create_connection():
-    conn = sqlite3.connect('db_path')  
+    conn = sqlite3.connect('phonepedata.db')  
     return conn
