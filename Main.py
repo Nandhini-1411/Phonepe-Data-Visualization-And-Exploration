@@ -5,6 +5,33 @@ import plotly.express as px
 from PIL import Image
 import json
 import pandas as pd
+import gdown
+import zipfile
+import os
+
+# Google Drive File ID (Replace with your actual file ID)
+FILE_ID = "160rnQ2d64xcHrWtFu5MUtHYTJMqUTqk0"
+
+# Function to download and extract data
+def download_and_extract_data():
+    zip_file = "data.zip"
+    
+    # Only download if the data is not already present
+    if not os.path.exists("data-insurance"):
+        url = f"https://drive.google.com/uc?id={FILE_ID}"
+        gdown.download(url, zip_file, quiet=False)
+
+        # Extract the ZIP file
+        with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+            zip_ref.extractall()
+
+        print("✅ Data downloaded and extracted successfully!")
+    else:
+        print("✅ Data already exists, skipping download.")
+
+# Call the function before loading data
+download_and_extract_data()
+
 #streamlit app
 conn = fun.create_connection()
 st.set_page_config(page_icon=r"assets/images/logofinal.png",page_title="PhonePe Data Insights",layout= "wide")
